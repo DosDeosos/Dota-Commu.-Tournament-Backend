@@ -1,0 +1,100 @@
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  default: none
+  enable:
+    - govet
+    - staticcheck
+    - errcheck
+    - ineffassign
+    - unused
+    - misspell
+    - gosec
+    - revive
+    - gocritic
+    - goconst
+    - dupl
+    - bodyclose
+    - gocognit
+    - gocyclo
+    - funlen
+    - nestif
+    - noctx
+    - sqlclosecheck
+    - rowserrcheck
+    - errorlint
+    - nilerr
+    - predeclared
+  settings:
+    gocognit:
+      min-complexity: 15
+    gocyclo:
+      min-complexity: 15
+    funlen:
+      lines: 80
+      statements: 50
+    nestif:
+      min-complexity: 4
+    dupl:
+      threshold: 150
+    goconst:
+      min-len: 3
+      min-occurrences: 3
+      ignore-calls: false
+    misspell:
+      locale: US
+    govet:
+      enable:
+        - unreachable
+    gocritic:
+      enabled-checks:
+        - boolExprSimplify
+        - typeUnparen
+    revive:
+      rules:
+        - name: var-naming
+        - name: argument-limit
+          arguments: [7]
+        - name: empty-block
+        - name: redefines-builtin-id
+        - name: bool-literal-in-expr
+        - name: unreachable-code
+        - name: identical-branches
+        - name: identical-ifelseif-branches
+        - name: identical-ifelseif-conditions
+        - name: identical-switch-branches
+        - name: identical-switch-conditions
+        - name: exported
+          disabled: true
+        - name: package-comments
+          disabled: true
+    gosec:
+      excludes:
+        - G104
+  exclusions:
+    generated: lax
+    presets:
+      - common-false-positives
+      - std-error-handling
+    rules:
+      - path: _test\.go
+        linters:
+          - funlen
+          - dupl
+          - goconst
+          - gosec
+          - noctx
+          - bodyclose
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/DosDeosos/dota-commu-tournament-backend
