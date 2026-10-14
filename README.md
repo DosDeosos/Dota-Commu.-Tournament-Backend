@@ -92,6 +92,6 @@ local Go downloads the pinned toolchain automatically.
 
 ## Using it from the frontend
 
-Add `NEXT_PUBLIC_API_URL=https://<backend>.vercel.app` to the frontend's env,
-then fetch `/api/data` and feed `players` and `ratings` into the existing
-aggregation logic in place of the hardcoded `PLAYERS` and `RATINGS` constants.
+The frontend fetches `/api/data` on its server (`src/data/api.ts`) and
+prerenders the page, refreshing it at most every 60 seconds. A data change
+here appears on the site about a minute after this repo redeploys.
